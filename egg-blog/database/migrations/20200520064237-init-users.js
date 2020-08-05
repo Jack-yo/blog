@@ -10,7 +10,7 @@ module.exports = {
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
     */
 
-    const { DATE, STRING } = Sequelize;
+    const { DATE, STRING,TEXT,INTEGER } = Sequelize;
     await queryInterface.createTable('user_infos', {
       name: { type: STRING(30).BINARY, primaryKey: true, allowNull: false, unique: true },
       password: { type: STRING(100), allowNull: false },
@@ -22,7 +22,7 @@ module.exports = {
           isEmail: true,
         },
       },
-      token: { type: STRING(300), allowNull: false },
+      token: {type: STRING(300),allowNull: false},
       created_at: DATE,
       updated_at: DATE,
     });
@@ -37,6 +37,5 @@ module.exports = {
       return queryInterface.dropTable('users');
     */
     await queryInterface.dropTable('user_infos');
-
   },
 };

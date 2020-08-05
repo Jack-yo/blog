@@ -23,6 +23,9 @@ module.exports = appInfo => {
     csrf: {
       enable: false,
     },
+    xframe: {
+      value: 'SAMEORIGIN',
+    },
   };
 
   // use secret for encryption

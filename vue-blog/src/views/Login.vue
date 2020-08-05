@@ -34,7 +34,6 @@ export default {
       }
     }
   },
-  created () {},
   methods: {
     doLogin () {
       if (!this.user.username) {
@@ -53,6 +52,7 @@ export default {
             if (res.data.code === 200) {
               localStorage.setItem("blogToken",res.data.token);
               this.$store.state.token = res.data.token;
+              // this.$store.dispatch('commitUsername',this.user.username);
               console.log(localStorage.blogToken);
               this.$router.push({ path: '/home' });
             } else {
@@ -85,6 +85,7 @@ export default {
     border-radius: 30px;
     background-color: white;
     opacity: 0.9;
+    text-align:center;
   }
   #password {
     margin-bottom: 5px;

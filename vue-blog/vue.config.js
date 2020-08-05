@@ -6,7 +6,7 @@ module.exports = {
   outputDir: 'dist', // 打包时生成的生产环境构建稳健的目录
   assetsDir: 'static', // 放置生成的静态资源的目录
   filenameHashing: true,
-  lintOnSave: true, // eslint-loader会将lint错误输出为编译警告
+  lintOnSave: false, // eslint-loader会将lint错误输出为编译警告true
   productionSourceMap: false, // 将其设置为false，以加速生产环境的构建
   configureWebpack: {
     plugins: []
@@ -34,7 +34,7 @@ module.exports = {
     // proxy: null,
     proxy: {
       '/api': {
-        target: 'http://127.0.0.1:7001',
+        target: 'http://127.0.0.1:7001/',
         ws: true,
         changOrigin: true,
         pathRewrite: {

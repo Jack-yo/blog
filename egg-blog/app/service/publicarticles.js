@@ -18,12 +18,13 @@ class PubArticlesService extends Service{
     }
   };
 
-  async uploadArticle(name,token,title,article){
+  async uploadArticle(data){
     const { ctx } = this;
-    const page= ctx.helper.escape(article);
-
+    console.log(data.toString());
+    data.page = ctx.helper.escape(data.page);
+    data.like = 0;
     try{
-      await ctx.model.Publicarticles.create({name,token,title,page});
+      await ctx.model.Publicarticles.create(data);
     }catch (e) {
       console.log('上传文章到数据库发生的错误' + e);
       return false;

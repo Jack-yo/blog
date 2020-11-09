@@ -8,6 +8,7 @@ module.exports = {
   filenameHashing: true,
   lintOnSave: false, // eslint-loader会将lint错误输出为编译警告true
   productionSourceMap: false, // 将其设置为false，以加速生产环境的构建
+  runtimeCompiler: true,
   configureWebpack: {
     plugins: []
   },

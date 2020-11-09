@@ -2,9 +2,9 @@
 
 const Controller = require('egg').Controller;
 
-class uploadArticleController extends Controller{
+class commentController extends Controller{
 
-  async editingArticle(){
+  async getComment(){
     const { ctx } = this;
     let data = ctx.request.body;
 
@@ -12,22 +12,22 @@ class uploadArticleController extends Controller{
     const isValidToken = await ctx.service.user.isValidToken(data.token);
 
     if(isExistName && isValidToken){
-      const result = await ctx.service.editingarticles.uploadArticle(data.name,data.token,data.title,data.editingarticle);
-      ctx.body = result?{code:200,msg:'上传草稿文章成功'}:{code:500,msg:'服务器繁忙，请重试'};
+      const result = await ctx.service.comment.getComment(data.pageId);
+      ctx.body = result ? {code:200,result:result}:{code:500,msg:'无评论数据'};
     }else{
-      ctx.body = {code:400,msg:'上传草稿文章失败，请重试'};
+      ctx.body = {code:400,msg:'用户信息有误'};
     }
   }
 
-  async publishArticle (){
+  async writeComment (){
     const { ctx } = this;
     let data = ctx.request.body;
-
+    console.log(data.name);
     const isExistName = await ctx.service.user.isExistName(data.name);
     const isValidToken = await ctx.service.user.isValidToken(data.token);
 
     if(isExistName && isValidToken){
-      const result = await ctx.service.publicarticles.uploadArticle(data);
+      const result = await ctx.service.comment.writeComment(data);
       ctx.body = result?{code:200,msg:'上传文章成功'}:{code:500,msg:'服务器繁忙，请重试'};
     }else{
       ctx.body = {code:400,msg:'上传文章失败，请重试'};
@@ -35,4 +35,4 @@ class uploadArticleController extends Controller{
   }
 }
 
-module.exports = uploadArticleController;
+module.exports = commentController;

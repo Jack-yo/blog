@@ -15,7 +15,10 @@ module.exports = {
       name:{ type: STRING(30).BINARY,  allowNull: false,},
       token:{ type: STRING(300),allowNull: false },
       title:{type: STRING(300).BINARY,allowNull:false},
+      description:{type:STRING(450).BINARY},
       page:{ type:TEXT('medium'),allowNull:false},
+      like:{ type:INTEGER,allowNull:false},
+      tags:{type:STRING(30).BINARY},
       created_at: DATE,
       updated_at: DATE,
     })

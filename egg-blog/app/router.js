@@ -30,4 +30,10 @@ module.exports = app => {
 
   //获取草稿箱文章
   router.post('/getEditingArticles',controller.home.draftbox);
+
+  //发表评论
+  router.post('/writeComment',controller.comment.writeComment);
+
+  //获取评论
+  router.post('/getComment',controller.comment.getComment);
 };

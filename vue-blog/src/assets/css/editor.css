@@ -1,5 +1,7 @@
-html,body,#divDemo{
+#divDemo{
     height: 100%;
+    background-color: white;
+    overflow-y: hidden;
 }
 @font-face {
     font-family: 'icon';
@@ -31,7 +33,7 @@ html,body,#divDemo{
     right:0;
     top:0;
     left:0;
-    z-index: 10000;
+    z-index: 2001;
 
 }
 .toolbar .menu {
@@ -142,6 +144,7 @@ html,body,#divDemo{
 .text {
     padding: 0 10px;
     overflow-y: scroll;
+    position: relative;
     box-sizing: border-box;
 }
 .text p,.text h1,.text h2,.text h3,.text h4,.text h5,.text table,.text pre {
@@ -229,7 +232,6 @@ html,body,#divDemo{
     padding: 5px;
 }
 .toolbar .droplist ul.block li.item {
-
      display: inline-block;
      height: 20px;
      padding: 3px 5px;

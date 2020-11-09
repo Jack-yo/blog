@@ -5,6 +5,7 @@ import Login from '../views/Login'
 import Register from '../views/Register'
 import Editor from '../views/Editor'
 import PublicArticle from '../views/PublicArticle'
+import CommentEditor from '../views/CommentEditor'
 
 Vue.use(VueRouter)
 
@@ -36,6 +37,11 @@ const routes = [
     path:'/publicArticle',
     name:'PublicArticle',
     component:PublicArticle
+  },
+  {
+    path:'/commentEditor',
+    name:'CommentEditor',
+    component:CommentEditor
   }
 ]
 

@@ -184,10 +184,6 @@
         </div>
       </div>
 
-      <div class="menu" style="z-index:10001; margin:0 50px;">
-        |
-      </div>
-
       <div class="menu" style="z-index:10001;" @mousedown="changeDisplay('link','block')">
         <i class="icon-link"></i>
       </div>
@@ -233,20 +229,8 @@
         <i class="icon-happy"></i>
       </div>
 
-      <div class="menu" id="img" style="z-index:10001;" @mousedown="changeDisplay('image','block')">
-        <i class="icon-image"></i>
-      </div>
-
-      <div class="menu" style="z-index:10001;" @mousedown="changeDisplay('table','block')">
-        <i class="icon-table2"></i>
-      </div>
-
       <div class="menu" style="z-index:10001;" @mousedown="needCursor().transCode()">
         <i class="icon-terminal"></i>
-      </div>
-
-      <div class="menu" style="z-index:10001; margin:0 50px;">
-        |
       </div>
 
       <div class="menu" style="z-index:10001;" @mousedown=" execCommand('undo',false,null)">
@@ -257,73 +241,14 @@
         <i class="icon-redo"></i>
       </div>
 
-      <div class="menu" style="z-index:10001;" @mousedown="saveHTML()">
-        <i class="el-icon-collection"></i>
-      </div>
-
-      <el-button type="text" @click="dialogFormVisible=true" style="padding: 0; margin: 1px 0 1px 12%;" >
+      <el-button type="text" @click="upload" style="padding: 0; margin: 1px 0 1px 5%;" >
         <el-button type="primary"  style="padding:  6px; ">发布<i class="el-icon-upload el-icon--right"></i></el-button>
       </el-button>
-
-      <el-dialog title="提示" :visible.sync="dialogFormVisible" :append-to-body="true" :close-on-click-modal='false'>
-        <el-form :model="article">
-          <el-form-item label="文章标题" >
-            <el-input v-model="article.title" autocomplete="off" maxlength="35" placeholder="请输入标题不超过35个字符"></el-input>
-          </el-form-item>
-          <el-form-item label="文章概述" >
-            <el-input v-model="article.description" autocomplete="off" maxlength="200" type="textarea" :rows="3" placeholder="请输入概述不超过200个字符"></el-input>
-          </el-form-item>
-        </el-form>
-
-        <div >文章分类</div>
-
-        <div style="margin-top: 20px">
-          <el-checkbox-group v-model="checkboxGroup1" v-for="label in tags" size="small" style="display: inline-block">
-            <el-checkbox :label="label" style="margin-right: 10px" border></el-checkbox>
-          </el-checkbox-group>
-        </div>
-
-        <div slot="footer" class="dialog-footer">
-          <el-button @click="dialogFormVisible = false">取 消</el-button>
-          <el-button type="primary" @click="upload">确 定</el-button>
-        </div>
-      </el-dialog>
-
-      <el-button type="danger" style="padding: 6px; margin:2px 0 2px 3%;"  icon="el-icon-close" circle @click="centerDialogVisible = true"></el-button>
-
-      <el-dialog
-        title="提示"
-        :visible.sync="centerDialogVisible"
-        width="30%"
-        center>
-        <span style="display: block;text-align: center">是否将文章存入草稿箱</span>
-        <span slot="footer" class="dialog-footer">
-    <el-button @click="exit()">不存入</el-button>
-    <el-button type="primary" @click="uploadEditing()">确 定</el-button>
-        </span>
-      </el-dialog>
-
     </div>
 
     <div style="border:1px solid #ccc; border-top:none; height:calc(100% - 37px); padding-top:37px;" class="text-container">
       <div contenteditable="true" style="width:100%; height:100%;" class="text" id="text-elem" @click="needCursor().saveCursor()" @keyup="needCursor().saveCursor()">
         <p>欢迎使用<b>富文本编辑器</b>，请输入内容...</p>
-      </div>
-
-      <div class="panel-container" id="link" style="width:300px; left: 20%;" >
-        <i class="icon-close panel-close" @mousedown="changeDisplay('link','none')"></i>
-        <ul class="panel-tab-title">
-          <li class="item active">链接</li>
-        </ul>
-        <div class="panel-tab-content">
-          <div>
-            <input id="input-link" type="text" class="block" value="http://" placeholder="http://..." @keyup="needCursor().inputLink()">
-            <div class="button-container">
-              <button id="btn-ok" class="right" @mousedown="needCursor().insertLink()">删除已绑定的超链接</button>
-              <button id="btn-de" class="gray right" style="display:none" @mousedown="cleanLink()">删除链接</button>
-            </div>
-          </div>
-        </div>
       </div>
 
       <div class="panel-container" id="emoji" style="width:200px; left:43%" @mouseover="changeDisplay('emoji','block')" @mouseout="changeDisplay('emoji','none')">
@@ -354,93 +279,27 @@
           <span class="item">😘</span>
         </div>
       </div>
-
-      <div class="panel-container" id="image" style="width:300px; left:35%">
-        <i class="icon-close panel-close" @mousedown="changeDisplay('image','none')"></i>
-        <ul class="panel-tab-title">
-          <li class="item active">上传图片</li>
-          <li class="item">网络图片</li>
-        </ul>
-        <div class="panel-tab-content">
-          <div class="up-img-container">
-            <div id="up-trigger" class="up-btn">
-              <i class="icon-upload2" @mousedown="needCursor().insertImage()"></i>
-            </div>
-            <div style="display:none;">
-              <input id="up-file" type="file" multiple="multiple" accept="image/jpg,image/jpeg,image/png,image/gif,image/bmp" @change="needCursor().uploadImage($event)">
-            </div>
-          </div>
-          <div style="display:none;">
-            <input id="link-url" type="text" class="block" placeholder="图片链接">
-            <div class="button-container">
-              <button id="link-btn" class="right">插入</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="panel-container" id="table" style="width:250px; left:38%">
-        <i class="icon-close panel-close" @mousedown="changeDisplay('table','none')"></i>
-        <ul class="panel-tab-title">
-          <li class="item active">插入表格</li>
-        </ul>
-        <div class="panel-tab-content">
-          <div>
-            <p style="text-align:left; padding:5px 0;">
-              创建
-              <input id="row" type="text" value="5" style="width:40px;text-align:center;">
-              行
-              <input id="col" type="text" value="5" style="width:40px;text-align:center;">
-              列的表格
-            </p>
-            <div class="button-container">
-              <button id="btn" class="right" @click="needCursor().insertTable()">插入</button>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
   import noCursor from '../assets/js/editor/noCursor.js'
-  import  handleClick  from '../assets/js/editor/handleImg.js'
   import needCursor from '../assets/js/editor/needCursor.js'
   export default {
-    name: 'editor',
+    name: 'commentEditor',
     data: ()=>{
       return {
-        article:{
-          username:'',
+        comment:{
+          name:'',
           token:'',
-          title:'',
-          savedHTML:'',
-          tags:'',
-          like:0,
-          language:'',
-          description:'',
+          pageId:0,
+          comment:'',
+          followId:0
         },
-        centerDialogVisible:false,//是否存入草稿箱的对话框显示状态
-        // formLabelWidth: '120px',
-        dialogFormVisible:false,//是否上传的对话框显示状态
-        checkboxGroup1: [],//用户已选的标签
-        tags: ['python','C++','go','JAVA','后端','前端']
       }
     },
-    mounted:()=>{
-      document.getElementById('toolbar').onmousedown = function(e){
-        //现代浏览器阻止默认事件
-        if ( e && e.preventDefault )
-        // e.preventDefault()
-          ;
-        //IE阻止默认事件
-        else
-        // window.event.returnValue = false;
-
-          return false;
-      };
-
+    mounted(){
       //为一些样式选择添加绑定事件
       noCursor.headerChoose();
       noCursor.fontSizeChoose();
@@ -448,10 +307,12 @@
       noCursor.ColorChoose('font-color-list');
       noCursor.emojiChoose();
       noCursor.ColorChoose('bg-color-list');
-
-      //开启文本框输入监听，检查是否点击照片
-      let editor = document.getElementById('text-elem');
-      editor.addEventListener('click', handleClick.handleClick);
+    },
+    created(){
+      this.comment.followId = this.$route.query.followID;
+      this.comment.token = this.$store.state.token;
+      this.comment.name = this.$store.state.username;
+      this.comment.pageId = this.$route.query.pageID;
     },
     methods: {
       //改变样式选择的下拉列表显示状态
@@ -472,63 +333,30 @@
       },
       //将已编辑内容存在data中
       saveHTML(){
-        this.article.savedHTML = document.getElementById('text-elem').innerHTML;
-        this.$store.state.savedHTML = this.article.savedHTML;
+        this.comment.comment = document.getElementById('text-elem').innerHTML;
       },
       //上传已编辑内容
       upload(){
-        if(this.article.title != ''){
-          this.dialogFormVisible = false;
-          let tagstr = this.checkboxGroup1.join(",");
           this.saveHTML();
-          this.$axios.post('/publicArticle',{
-            name:'root',//this.article.username
-            token:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoicm9vdCIsImlhdCI6MTU5MDMzMjQ0MX0.W5rSk8OqmU-guUw4nV6Zgnwl2m7NW0pFJpj2jSqhaNo',// this.article.token
-            title:this.article.title,
-            description:this.article.description,
-            page:this.article.savedHTML,
-            tags:tagstr,
-          }).then( res => {
+          this.$axios.post('/writeComment',this.comment).then( res => {
             if(res.data.code === 200){
-              this.$message.success('发布成功');
-              this.$router.push({path:'/home'});
+              this.$message.success('发布评论成功');
+              setTimeout(()=>{window.close();},1000);
             }else {
-              this.$message.error('发布失败，请重试');
+              this.$message.error('发布评论错误，请重试');
             }
           });
-          // console.log(this.article.savedHTML);
-        }else{
-          this.$message.error('标题未填写');
-        }
       },
-      //提示用户是否丢弃
-      exit() {
-        this.$message.warning('文章已丢弃');
-        this.centerDialogVisible = false;
-        this.$router.push({path:'/home'});
-      },
-      //上传文章到草稿箱
-      uploadEditing(){
-        this.saveHTML();
-        this.$axios.post('/editingArticle',{
-          name:'root',//this.article.username
-          token:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoicm9vdCIsImlhdCI6MTU5MDMzMjQ0MX0.W5rSk8OqmU-guUw4nV6Zgnwl2m7NW0pFJpj2jSqhaNo',// this.article.token
-          title:this.article.title,
-          editingarticle:this.article.savedHTML
-        }).then( res => {
-          this.centerDialogVisible = false;
-          if(res.data.code === 200){
-            this.$message.success('保存草稿箱成功');
-            this.$router.push({path:'/home'});
-          }else {
-            this.$message.error('保存失败，请重试');
-          }
-        });
-        console.log(this.article.savedHTML);
-      }
     },
+
   }
 </script>
 
-<style src="@/assets/css/editor.css"></style>
+<style>
+  .toolbar{
+    z-index: 1500;
+    padding:3px 5%;
+  }
+</style>
 
+<!--<style src="@/assets/css/editor.css"></style>-->
